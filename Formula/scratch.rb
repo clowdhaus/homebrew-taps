@@ -10,7 +10,7 @@ class Scratch < Formula
     end
     if Hardware::CPU.intel?
       url "https://github.com/clowdhaus/scratch/releases/download/#{version}/scratch-#{version}-x86_64-apple-darwin.tar.gz"
-      sha256 "121fe6cd8f38c7b2faf2007c32088081fc686a363a6615b97f82b2fc6982af08"
+      sha256  "121fe6cd8f38c7b2faf2007c32088081fc686a363a6615b97f82b2fc6982af08"
     end
   end
 

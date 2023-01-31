@@ -9,21 +9,67 @@ fi
 TAP="$1"
 VERSION="$2"
 
-# MacOS
-for arch in aarch64 x86_64; do
-    url="https://github.com/clowdhaus/${TAP}/releases/download/${VERSION}/${TAP}-${VERSION}-$arch-apple-darwin.tar.gz"
-    sha=$(curl -sfSL "$url" | sha256sum)
-    echo "${VERSION}-$arch-apple-darwin $sha"
-done
+
+if [ $TAP == "scratch" ]; then
+  DESC="Its a thing that does nothing, really"
+else
+  DESC""
+fi
+
+# MacOS - arm
+tripple="aarch64-apple-darwin"
+url="https://github.com/clowdhaus/${TAP}/releases/download/${VERSION}/${TAP}-${VERSION}-${tripple}.tar.gz"
+sha=$(curl -sfSL $url | sha256sum | cut -f 1 -d " " | xargs)
+macos_arm=$sha
+
+# MacOS - x86_64
+tripple="x86_64-apple-darwin"
+url="https://github.com/clowdhaus/${TAP}/releases/download/${VERSION}/${TAP}-${VERSION}-${tripple}.tar.gz"
+sha=$(curl -sfSL $url | sha256sum | cut -f 1 -d " " | xargs)
+macos_x86=$sha
 
 # Linux - arm
-triple="arm-unknown-linux-gnueabihf"
-url="https://github.com/clowdhaus/${TAP}/releases/download/${VERSION}/${TAP}-${VERSION}-${triple}.tar.gz"
-sha=$(curl -sfSL "$url" | sha256sum)
-echo "${VERSION}-$triple $sha"
+tripple="arm-unknown-linux-gnueabihf"
+url="https://github.com/clowdhaus/${TAP}/releases/download/${VERSION}/${TAP}-${VERSION}-${tripple}.tar.gz"
+sha=$(curl -sfSL $url | sha256sum | cut -f 1 -d " " | xargs)
+linux_arm=$sha
 
 # Linux - x86_64
-triple="x86_64-unknown-linux-musl"
-url="https://github.com/clowdhaus/${TAP}/releases/download/${VERSION}/${TAP}-${VERSION}-${triple}.tar.gz"
-sha=$(curl -sfSL "$url" | sha256sum)
-echo "${VERSION}-$triple $sha"
+tripple="x86_64-unknown-linux-musl"
+url="https://github.com/clowdhaus/${TAP}/releases/download/${VERSION}/${TAP}-${VERSION}-${tripple}.tar.gz"
+sha=$(curl -sfSL $url | sha256sum | cut -f 1 -d " " | xargs)
+linux_x86=$sha
+
+cat <<EOT > Formula/${TAP}.rb
+class ${TAP^} < Formula
+  desc "${DESC}"
+  homepage "https://github.com/clowdhaus/${TAP}"
+  version "${VERSION}"
+
+  on_macos do
+    if Hardware::CPU.arm?
+      url "https://github.com/clowdhaus/${TAP}/releases/download/#{version}/${TAP}-#{version}-aarch64-apple-darwin.tar.gz"
+      sha256 "${macos_arm}"
+    end
+    if Hardware::CPU.intel?
+      url "https://github.com/clowdhaus/${TAP}/releases/download/#{version}/${TAP}-#{version}-x86_64-apple-darwin.tar.gz"
+      sha256  "${macos_x86}"
+    end
+  end
+
+  on_linux do
+    if Hardware::CPU.arm? && Hardware::CPU.is_64_bit?
+      url "https://github.com/clowdhaus/${TAP}/releases/download/#{version}/${TAP}-#{version}-arm-unknown-linux-gnueabihf.tar.gz"
+      sha256 "${linux_arm}"
+    end
+    if Hardware::CPU.intel?
+      url "https://github.com/clowdhaus/${TAP}/releases/download/#{version}/${TAP}-#{version}-x86_64-unknown-linux-musl.tar.gz"
+      sha256 "${linux_x86}"
+    end
+  end
+
+  def install
+    bin.install "${TAP}"
+  end
+end
+EOT
