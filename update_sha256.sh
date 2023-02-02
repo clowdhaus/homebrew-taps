@@ -12,6 +12,8 @@ VERSION="$2"
 
 if [ $TAP == "scratch" ]; then
   DESC="Its a thing that does nothing, really"
+elif [ $TAP == "eksup" ]; then
+  DESC="A CLI to aid in upgrading Amazon EKS clusters"
 else
   DESC""
 fi

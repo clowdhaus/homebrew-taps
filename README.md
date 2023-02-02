@@ -4,8 +4,10 @@ Contains Homebrew taps
 
 ## Install
 
-Scratch:
+#### [`eksup`](https://github.com/clowdhaus/eksup/)
+
+A CLI to aid in upgrading Amazon EKS clusters
 
 ```sh
-brew install clowdhaus/taps/scratch
+brew install clowdhaus/taps/eksup
 ```
