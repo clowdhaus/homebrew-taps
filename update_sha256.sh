@@ -11,6 +11,8 @@ VERSION="$2"
 
 if [ $TAP == "eksup" ]; then
   DESC="A CLI to aid in upgrading Amazon EKS clusters"
+elif [ $TAP == "cookiecluster" ]; then
+  DESC="Stamping out clusters like its 1999"
 else
   DESC""
 fi
