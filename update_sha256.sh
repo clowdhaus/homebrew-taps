@@ -13,9 +13,14 @@ if [ $TAP == "eksup" ]; then
   DESC="A CLI to aid in upgrading Amazon EKS clusters"
 elif [ $TAP == "cookiecluster" ]; then
   DESC="Stamping out clusters like its 1999"
+elif [ $TAP == "ktime" ]; then
+  DESC="Collect Kubernetes pod event time durations"
 else
   DESC""
 fi
+
+url="https://github.com/clowdhaus/ktime/releases/download/v0.1.0/ktime-v0.1.0-aarch64-apple-darwin.tar.gz"
+url="https://github.com/clowdhaus/ktime/releases/download/v0.1.0/ktime--aarch64-apple-darwin.tar.gz
 
 # MacOS - arm
 tripple="aarch64-apple-darwin"
