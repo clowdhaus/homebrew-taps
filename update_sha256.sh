@@ -19,9 +19,6 @@ else
   DESC""
 fi
 
-url="https://github.com/clowdhaus/ktime/releases/download/v0.1.0/ktime-v0.1.0-aarch64-apple-darwin.tar.gz"
-url="https://github.com/clowdhaus/ktime/releases/download/v0.1.0/ktime--aarch64-apple-darwin.tar.gz
-
 # MacOS - arm
 tripple="aarch64-apple-darwin"
 url="https://github.com/clowdhaus/${TAP}/releases/download/${VERSION}/${TAP}-${VERSION}-${tripple}.tar.gz"
