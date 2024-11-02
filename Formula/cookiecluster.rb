@@ -1,27 +1,27 @@
 class Cookiecluster < Formula
   desc "Stamping out clusters like its 1999"
   homepage "https://github.com/clowdhaus/cookiecluster"
-  version "v0.5.0"
+  version "v0.6.0"
 
   on_macos do
     if Hardware::CPU.arm?
       url "https://github.com/clowdhaus/cookiecluster/releases/download/#{version}/cookiecluster-#{version}-aarch64-apple-darwin.tar.gz"
-      sha256 "7ef424572cef3d8ec509b0479267b5fbeff9945b5575bc20a0c178862dfa7ad4"
+      sha256 "347ac6af26d1c80d54f1be6f925dff2f79d6df12f9da7d3abaaddda217de9fa4"
     end
     if Hardware::CPU.intel?
       url "https://github.com/clowdhaus/cookiecluster/releases/download/#{version}/cookiecluster-#{version}-x86_64-apple-darwin.tar.gz"
-      sha256  "b82ecd9c7a79296c22678554c43a76a3337e92cfe1cec0d22d44b9d4edd3ba85"
+      sha256  "8e07417b6a6a351ff4fec8a573fdb3ca90d964db1cee9fa1fb8d6579aa8a1871"
     end
   end
 
   on_linux do
     if Hardware::CPU.arm? && Hardware::CPU.is_64_bit?
       url "https://github.com/clowdhaus/cookiecluster/releases/download/#{version}/cookiecluster-#{version}-arm-unknown-linux-gnueabihf.tar.gz"
-      sha256 "680a635091397b13290e2f69a399cd3d31a3b8dfaae9282191e17e1755212463"
+      sha256 "c566f19f24520095dd25921ef9517803bd17459d73f0425a447c1d029455a484"
     end
     if Hardware::CPU.intel?
       url "https://github.com/clowdhaus/cookiecluster/releases/download/#{version}/cookiecluster-#{version}-x86_64-unknown-linux-musl.tar.gz"
-      sha256 "94bae2364cc071059a0e8adcd6bdbbca5e51c8df200611f3f417c73705a169b9"
+      sha256 "d3ea39299a2e096c036e96fe2cad57b5f5bb8bc898f575908d98e5393b026f46"
     end
   end
 
