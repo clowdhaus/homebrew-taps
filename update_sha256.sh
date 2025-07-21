@@ -19,7 +19,7 @@ else
   DESC""
 fi
 
-# MacOS - arm
+# MacOS - ARM
 tripple="aarch64-apple-darwin"
 url="https://github.com/clowdhaus/${TAP}/releases/download/${VERSION}/${TAP}-${VERSION}-${tripple}.tar.gz"
 sha=$(curl -sfSL $url | sha256sum | cut -f 1 -d " " | xargs)
@@ -31,14 +31,14 @@ url="https://github.com/clowdhaus/${TAP}/releases/download/${VERSION}/${TAP}-${V
 sha=$(curl -sfSL $url | sha256sum | cut -f 1 -d " " | xargs)
 macos_x86=$sha
 
-# Linux - arm
-tripple="arm-unknown-linux-gnueabihf"
+# Linux - ARM
+tripple="aarch64-unknown-linux-gnu"
 url="https://github.com/clowdhaus/${TAP}/releases/download/${VERSION}/${TAP}-${VERSION}-${tripple}.tar.gz"
 sha=$(curl -sfSL $url | sha256sum | cut -f 1 -d " " | xargs)
 linux_arm=$sha
 
 # Linux - x86_64
-tripple="x86_64-unknown-linux-musl"
+tripple="x86_64-unknown-linux-gnu"
 url="https://github.com/clowdhaus/${TAP}/releases/download/${VERSION}/${TAP}-${VERSION}-${tripple}.tar.gz"
 sha=$(curl -sfSL $url | sha256sum | cut -f 1 -d " " | xargs)
 linux_x86=$sha
@@ -49,24 +49,24 @@ class ${TAP^} < Formula
   homepage "https://github.com/clowdhaus/${TAP}"
   version "${VERSION}"
 
-  on_macos do
-    if Hardware::CPU.arm?
+  if OS.mac?
+    if Hardware::CPU.arm
       url "https://github.com/clowdhaus/${TAP}/releases/download/#{version}/${TAP}-#{version}-aarch64-apple-darwin.tar.gz"
       sha256 "${macos_arm}"
     end
-    if Hardware::CPU.intel?
+    if Hardware::CPU.intel
       url "https://github.com/clowdhaus/${TAP}/releases/download/#{version}/${TAP}-#{version}-x86_64-apple-darwin.tar.gz"
       sha256  "${macos_x86}"
     end
   end
 
-  on_linux do
-    if Hardware::CPU.arm? && Hardware::CPU.is_64_bit?
-      url "https://github.com/clowdhaus/${TAP}/releases/download/#{version}/${TAP}-#{version}-arm-unknown-linux-gnueabihf.tar.gz"
+  if OS.linux?
+    if Hardware::CPU.arm?
+      url "https://github.com/clowdhaus/${TAP}/releases/download/#{version}/${TAP}-#{version}-aarch64-unknown-linux-gnu.tar.gz"
       sha256 "${linux_arm}"
     end
-    if Hardware::CPU.intel?
-      url "https://github.com/clowdhaus/${TAP}/releases/download/#{version}/${TAP}-#{version}-x86_64-unknown-linux-musl.tar.gz"
+    if Hardware::CPU.intel
+      url "https://github.com/clowdhaus/${TAP}/releases/download/#{version}/${TAP}-#{version}-x86_64-unknown-linux-gnu.tar.gz"
       sha256 "${linux_x86}"
     end
   end

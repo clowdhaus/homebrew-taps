@@ -1,27 +1,27 @@
 class Eksup < Formula
-  desc "A CLI to aid in upgrading Amazon EKS clusters"
+  desc "A CLI to aid in upgrading Amazon EKS clusters."
   homepage "https://github.com/clowdhaus/eksup"
-  version "v0.10.0"
+  version "v0.11.0"
 
-  on_macos do
-    if Hardware::CPU.arm?
+  if OS.mac?
+    if Hardware::CPU.arm
       url "https://github.com/clowdhaus/eksup/releases/download/#{version}/eksup-#{version}-aarch64-apple-darwin.tar.gz"
-      sha256 "bf853b76e64636eaf347bac57589399611a9764fcb965f5168a5aff51117bc07"
+      sha256 "b189aff9b5bcba1b44dab68ef2825dbcfc16bdfe5d5cf735e50386c076665891"
     end
-    if Hardware::CPU.intel?
+    if Hardware::CPU.intel
       url "https://github.com/clowdhaus/eksup/releases/download/#{version}/eksup-#{version}-x86_64-apple-darwin.tar.gz"
-      sha256  "02f3813e268739dabf4a501f63d33b6c05db4e391be1dc7051ac4828c77b0185"
+      sha256  "5d702634ce3839acfd04bc327ad796810d57f5003b3099c142f64060aa5d9ad9"
     end
   end
 
-  on_linux do
-    if Hardware::CPU.arm? && Hardware::CPU.is_64_bit?
-      url "https://github.com/clowdhaus/eksup/releases/download/#{version}/eksup-#{version}-arm-unknown-linux-gnueabihf.tar.gz"
-      sha256 "68f53018279d5d3e76b24c86846cf6aa3076c0aaf66d4fc24ba82e5ce6301f94"
+  if OS.linux?
+    if Hardware::CPU.arm?
+      url "https://github.com/clowdhaus/eksup/releases/download/#{version}/eksup-#{version}-aarch64-unknown-linux-gnu.tar.gz"
+      sha256 "3d6ecaed034587852150e1d5a8dbd49c1d1be06781b8ecc724acda17a091c5fe"
     end
-    if Hardware::CPU.intel?
-      url "https://github.com/clowdhaus/eksup/releases/download/#{version}/eksup-#{version}-x86_64-unknown-linux-musl.tar.gz"
-      sha256 "eda96f3889ba83df7549bd52d9aeedb6acd11f649674c8bf2ed6cfcc4ad8583c"
+    if Hardware::CPU.intel
+      url "https://github.com/clowdhaus/eksup/releases/download/#{version}/eksup-#{version}-x86_64-unknown-linux-gnu.tar.gz"
+      sha256 "cf469aa550295f5194f5c7233f51a5fae61e08936d573f45e97a5893fdef897c"
     end
   end
 
