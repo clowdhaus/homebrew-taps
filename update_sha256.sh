@@ -49,26 +49,24 @@ class ${TAP^} < Formula
   homepage "https://github.com/clowdhaus/${TAP}"
   version "${VERSION}"
 
-  if OS.mac?
-    if Hardware::CPU.arm
-      url "https://github.com/clowdhaus/${TAP}/releases/download/#{version}/${TAP}-#{version}-aarch64-apple-darwin.tar.gz"
-      sha256 "${macos_arm}"
-    end
-    if Hardware::CPU.intel
-      url "https://github.com/clowdhaus/${TAP}/releases/download/#{version}/${TAP}-#{version}-x86_64-apple-darwin.tar.gz"
-      sha256  "${macos_x86}"
-    end
+  if OS.mac? && Hardware::CPU.arm?
+    url "https://github.com/clowdhaus/${TAP}/releases/download/#{version}/${TAP}-#{version}-aarch64-apple-darwin.tar.gz"
+    sha256 "${macos_arm}"
   end
 
-  if OS.linux?
-    if Hardware::CPU.arm?
-      url "https://github.com/clowdhaus/${TAP}/releases/download/#{version}/${TAP}-#{version}-aarch64-unknown-linux-gnu.tar.gz"
-      sha256 "${linux_arm}"
-    end
-    if Hardware::CPU.intel
+  if OS.mac? && Hardware::CPU.intel?
+    url "https://github.com/clowdhaus/${TAP}/releases/download/#{version}/${TAP}-#{version}-x86_64-apple-darwin.tar.gz"
+    sha256  "${macos_x86}"
+  end
+
+  if OS.linux? && Hardware::CPU.arm?
+    url "https://github.com/clowdhaus/${TAP}/releases/download/#{version}/${TAP}-#{version}-aarch64-unknown-linux-gnu.tar.gz"
+    sha256 "${linux_arm}"
+  end
+
+  if OS.linux? && Hardware::CPU.intel?
       url "https://github.com/clowdhaus/${TAP}/releases/download/#{version}/${TAP}-#{version}-x86_64-unknown-linux-gnu.tar.gz"
       sha256 "${linux_x86}"
-    end
   end
 
   def install
