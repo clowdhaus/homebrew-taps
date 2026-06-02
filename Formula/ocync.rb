@@ -1,22 +1,22 @@
 class Ocync < Formula
   desc "OCI registry sync tool"
   homepage "https://github.com/clowdhaus/ocync"
-  version "0.5.3"
+  version "0.6.0"
   license "Apache-2.0"
 
   if OS.mac? && Hardware::CPU.arm?
     url "https://github.com/clowdhaus/ocync/releases/download/v#{version}/ocync-macos-arm64"
-    sha256 "634de46d4dd6aefa7f718d218a654828aa13dbe0a2423dceeebfbdb959aa3963"
+    sha256 "ef31abdce2f19f778b8f7854a16bb7ac94ef76dcf84f0baa388cd2d7d302f83b"
   end
 
   if OS.linux? && Hardware::CPU.intel?
     url "https://github.com/clowdhaus/ocync/releases/download/v#{version}/ocync-fips-linux-amd64"
-    sha256 "9843ea06264b62c3be4b3c04d7d9fffa13dea6869cd149c7503d3de93fc805ce"
+    sha256 "9a6087376cdaa22aecc35a5485bd8fa9c84c524db3bae13d9620408e44880a4d"
   end
 
   if OS.linux? && Hardware::CPU.arm?
     url "https://github.com/clowdhaus/ocync/releases/download/v#{version}/ocync-fips-linux-arm64"
-    sha256 "64c7db47a99f303af5581d9de42ed0b80f2ce864be9d547e8a23eb719490e396"
+    sha256 "fc33d8ac1bef4e7d53a409442ac52d58ae810246636303f53d2ddeb2f2f0a0a8"
   end
 
   def install
